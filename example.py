@@ -1,6 +1,7 @@
 from tqdm import tqdm
 from src.scheme import IOB2
 from src.entity import EntityFromNestedList
+from src.chakki_works.seqeval.v1 import classification_report
 input_nested_list = [[
                         ("台", "B-LOC"), 
                         ("北", "I-LOC"), 
@@ -22,6 +23,33 @@ print (df)
 # 1   0  PER              3            4   阿倫
 # 2   1  PER              0            1   阿倫
 # 3   1  ANI              3            3    人
+
+
+pred_nested_list = [[
+                        ("台", "B-LOC"), 
+                        ("北", "I-LOC"), 
+                        ("是", "O"), 
+                        ("阿", "B-PER"), 
+                        ("倫", "O"), 
+                        ("的", "O"), 
+                        ("家", "O")],
+                     [
+                        ("阿", "B-PER"),
+                        ("倫", "I-PER"),
+                        ("是", "O"),
+                        ("人", "B-ANI")]
+                    ]
+
+print (classification_report(input_nested_list, pred_nested_list, scheme=IOB2))
+#               precision    recall  f1-score   support
+
+#          ANI       1.00      1.00      1.00         1
+#          LOC       1.00      1.00      1.00         1
+#          PER       0.50      0.50      0.50         2
+
+#    micro avg       0.75      0.75      0.75         4
+#    macro avg       0.83      0.83      0.83         4
+# weighted avg       0.75      0.75      0.75         4
 
 
 # nested_list = list()
