@@ -7,6 +7,7 @@ I add the machanism to check if tag is available. Also, you can use entity.py to
 
 Now the repo only supports IOB2 scheme. Other scheme will be available in the future.
 
+## Get Entities
 ---
 Get Entities From Nested List
 ```
@@ -23,6 +24,7 @@ from src.entity import EntityFromList
 worker = EntityFromList(input_list, IOB2)
 entities = worker.entities
 ```
+## Evaluation
 ---
 Evaluate for overall performance report
 ```
@@ -37,14 +39,14 @@ Evaluate for classification report
 from src.chakki_works.seqeval.v1 import classification_report
 print (classification_report(input_nested_list, pred_nested_list, scheme=IOB2))
 ```
+## Test
 ---
-Test
 ```
 PYTHONPATH=./ pytest --log-cli-level=warning --cov=./  
 ```
+## Citation
 ---
-Citation
-
+```
 @{seqhelper,
   title={{seqhelper}: A Python framework for sequence labeling},
   url={https://github.com/allenyummy/seqhelper},
@@ -52,3 +54,4 @@ Citation
   author={Yu-Lun Chiang},
   year={2020},
 }
+```
