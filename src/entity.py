@@ -47,16 +47,8 @@ class EntityFromList:
         scheme,
         delimiter: str = "-",
         pid: int = 0,
-        eval: bool = False,
     ):
         self.seq = seq
-        if eval:
-            if any(isinstance(s, list) for s in self.seq):
-                self.seq = [
-                    (token, label)
-                    for sublist in self.seq
-                    for token, label in sublist + [("", "O")]
-                ]
         self.extend_seq = self.seq + [("", "O")]
         self.scheme = scheme
         self.delimiter = delimiter
