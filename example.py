@@ -1,7 +1,6 @@
 from tqdm import tqdm
 from src.scheme import IOB2
 from src.entity import EntityFromNestedList
-from src.chakki_works.seqeval.v1 import classification_report
 input_nested_list = [[
                         ("台", "B-LOC"), 
                         ("北", "I-LOC"), 
@@ -16,8 +15,8 @@ input_nested_list = [[
                         ("是", "O"),
                         ("人", "B-ANI")]
                     ]
-df = EntityFromNestedList(input_nested_list, IOB2).chunks2df()
-print (df)
+df1 = EntityFromNestedList(input_nested_list, IOB2).chunks2df()
+print (df1)
 #   pid type start_position end_position text
 # 0   0  LOC              0            1   台北
 # 1   0  PER              3            4   阿倫
@@ -39,8 +38,16 @@ pred_nested_list = [[
                         ("是", "O"),
                         ("人", "B-ANI")]
                     ]
+df2 = EntityFromNestedList(pred_nested_list, IOB2).chunks2df()
+print (df2)
 
-print (classification_report(input_nested_list, pred_nested_list, scheme=IOB2))
+df1["t/p"] = "t"
+df2["t/p"] = "p"
+df = df1.append(df2)
+df = df.sort_values(by=["pid", "start_pos"])
+print (df)
+
+# print (classification_report(input_nested_list, pred_nested_list, scheme=IOB2))
 #               precision    recall  f1-score   support
 
 #          ANI       1.00      1.00      1.00         1
