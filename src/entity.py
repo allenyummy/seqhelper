@@ -53,7 +53,6 @@ class EntityFromList:
         self.scheme = scheme
         self.delimiter = delimiter
         self.pid = pid
-        logger.info(f"=== [pid: {self.pid}] ===")
         self.entities = self.get_entities()
 
     def get_entities(self) -> List[EntityElements]:
@@ -67,7 +66,7 @@ class EntityFromList:
             cur_type = cur_label[1:].split(self.delimiter, maxsplit=1)[-1]
 
             if Prefix[cur_tag] not in self.scheme.allowed_prefix:
-                logger.error(
+                logger.debug(
                     f"{idx}-{chunk}: {Prefix[cur_tag]} is not available in {self.scheme.allowed_prefix}"
                 )
 
@@ -78,7 +77,7 @@ class EntityFromList:
             )
 
             if trans_cur_tag_valid(self.scheme, cur_pattern, check_only=True):
-                logger.error(
+                logger.debug(
                     f"Unreasonable transition. [pid:{self.pid}] [idx:{idx}] [{prev_tag}-{prev_type} =>> {cur_label} ({chunk[0]})]"
                 )
 
